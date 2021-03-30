@@ -1,0 +1,8 @@
+export const aws_config = {
+    region: 'your region',
+    identityPoolId: "your identity pool",
+    userPoolId: 'your user pool',
+    clientId: 'your client app id',
+    bucketName: 'your bucket name',
+    cognitoCredentialKey: 'your cognito credential key'
+}
