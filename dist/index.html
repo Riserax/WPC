@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <style>
+            .upload__progress-container {
+                border: 1px solid #000;
+                margin-top: 20px;
+                background: lightgray;
+            }
+
+            .upload__progress {
+                background: yellow;
+                width: 0%;
+                min-height: 50px;;
+            }
+        </style>
+    </head>
+    <body>
+        <h2>My application</h2>
+        <button class="register">Register</button>
+        <button class="confirmAccount">Confirm Account</button>
+        <button class="login">Login</button>
+        <button class="listFiles">List files</button>
+        
+        <div class="upload">
+            <input class="upload__input" type="file" multiple>
+            <button class="upload__btn">Upload it</button>
+            <div class="upload__progress-container">
+                <div class="upload__progress">0%</div>
+            </div>
+        </div>
+
+        <button class="orderAnimation">Order animation</button>
+        <button class="cancelOrder">Cancel order</button>
+        
+        <ul class="uploadedPreview"></ul>
+
+        <script src="/bundle.js"></script>
+    </body>
+</html>
