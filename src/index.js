@@ -1,3 +1,6 @@
+import miniCss from "mini.css/dist/mini-default.css"
+import mainCss from ".styles/main.css";
+
 import {hello} from './greet'
 import {aws_config} from './aws_export'
 

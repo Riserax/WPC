@@ -13,9 +13,12 @@
   "dependencies": {
     "aws-amplify": "^3.3.23",
     "aws-sdk": "^2.859.0",
+    "mini.css": "^3.0.1",
     "uuidv4": "^6.2.7"
   },
   "devDependencies": {
+    "css-loader": "^5.2.4",
+    "style-loader": "^2.0.0",
     "webpack": "^4.4",
     "webpack-cli": "^4.5.0"
   }

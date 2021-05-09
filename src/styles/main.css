@@ -1,0 +1,11 @@
+.upload__progress-container {
+    border: 1px solid #000;
+    margin-top: 20px;
+    background: lightgray;
+}
+
+.upload__progress {
+    background: yellow;
+    width: 0%;
+    min-height: 50px;;
+}
