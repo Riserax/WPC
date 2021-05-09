@@ -20,8 +20,28 @@ const userPool = new CognitoUserPool({
     ClientId: aws_config.clientId,
 });
 
-let order = [];
+// Animation Order
 
+const photos = [];
+const orderAnimation = (orderAnimationRequest) => {
+    //call api
+    getAccessToken()
+        .then(token => {
+            fetch(
+                `${aws_config.apiBaseUrl}/orders`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': token,
+                    },
+                    body: JSON.stringify(orderAnimationRequest)
+                }
+            ).then(response => console.log(response.json()))
+        })
+}
+
+let order = [];
 const addToOrder = (key) => {
     order.push(key);
     return key;
@@ -100,6 +120,24 @@ const loadSavedCredentials = () => {
             }
             
             resolve(session);
+        })
+    })
+}
+
+const getAccessToken = () => {
+    return new Promise((resolve, reject) => {
+        const user = userPool.getCurrentUser();
+
+        if (user == null) {
+            reject("User not available");
+        } 
+
+        user.getSession((err, session) => {
+            if (err) {
+                reject(err);
+            }
+
+            resolve(session.getIdToken().getJwtToken());
         })
     })
 }
@@ -285,18 +323,16 @@ uploadFileBtn.addEventListener('click', () => {
             .then(res => addToOrder(res))
             .then(res => getPresignedUrl(res))
             .then(url => addToUploadedPreview(url))
-            .finally(() => clearUploadArea(filesInput, progressBarEl));
+            .finally(() => clearUploadArea(filesInput, progressBarEl))
+            .catch(err => console.log(err));
     });
 });
 
 const orderAnimationBtn = document.querySelector('button.orderAnimation');
 orderAnimationBtn.addEventListener('click', () => {
-    const orderRequest = {
+    orderAnimation({
         email: registerRequestPayload.email,
-        photos: [...order]
-    }
-    console.log(orderRequest);
-    console.log('I am going to send it via API');
+        photos: [...photos]})
 });
 
 const cancelOrderAnimationBtn = document.querySelector('button.cancelOrder');
