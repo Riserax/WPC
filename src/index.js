@@ -1,5 +1,5 @@
 import miniCss from "mini.css/dist/mini-default.css"
-import mainCss from ".styles/main.css";
+import mainCss from "./styles/main.css";
 
 import {hello} from './greet'
 import {aws_config} from './aws_export'
@@ -22,33 +22,6 @@ const userPool = new CognitoUserPool({
     UserPoolId: aws_config.userPoolId,
     ClientId: aws_config.clientId,
 });
-
-// Animation Order
-
-const photos = [];
-const orderAnimation = (orderAnimationRequest) => {
-    //call api
-    getAccessToken()
-        .then(token => {
-            fetch(
-                `${aws_config.apiBaseUrl}/orders`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': token,
-                    },
-                    body: JSON.stringify(orderAnimationRequest)
-                }
-            ).then(response => console.log(response.json()))
-        })
-}
-
-let order = [];
-const addToOrder = (key) => {
-    order.push(key);
-    return key;
-}
 
 // AUTH ###############
 
@@ -241,6 +214,25 @@ const getPresignedUrl = (key) => {
     return s3.getSignedUrl('getObject', params);
 }
 
+// Animation Order
+
+const order = [];
+const addToOrder = (key) => {
+    order.push(key);
+    return key;
+}
+
+const orderAnimation = (token, orderRequest) => {
+    return fetch(`${aws_config.apiBaseUrl}/orders`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+        },
+        body: JSON.stringify(orderRequest)
+    })
+}
+
 // Html operations ###############
 
 const createElementFromString = (template) => {
@@ -333,9 +325,14 @@ uploadFileBtn.addEventListener('click', () => {
 
 const orderAnimationBtn = document.querySelector('button.orderAnimation');
 orderAnimationBtn.addEventListener('click', () => {
-    orderAnimation({
+    const orderRequest = {
         email: registerRequestPayload.email,
-        photos: [...photos]})
+        photos: [...order]
+    }
+    getAccessToken()
+        .then(token => orderAnimation(token, orderRequest))
+        .then(resp => console.log(resp.json()))
+        .catch(err => console.log(err));
 });
 
 const cancelOrderAnimationBtn = document.querySelector('button.cancelOrder');
