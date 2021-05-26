@@ -254,7 +254,7 @@ const addToUploadedPreview = (url) => {
 const clearUploadArea = (filesInput, progressBarEl) => {
     progressBarEl.style.width = `0%`;
     progressBarEl.textContent = `0%`;
-    filesInput.Value = '';
+    filesInput.value = '';
 }
 
 const registerBtn = document.querySelector('button.register');
