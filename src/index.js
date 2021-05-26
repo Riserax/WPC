@@ -259,7 +259,7 @@ const clearUploadArea = (filesInput, progressBarEl) => {
 
 const registerBtn = document.querySelector('button.register');
 const registerRequestPayload = {
-    email: "tafslbigeuvaimviet@niwghx.com",
+    email: "kamilcala05@gmail.com",
     password: "1234qwer",
     website: "jkan.pl"
 }
@@ -271,7 +271,7 @@ registerBtn.addEventListener('click', () => {
 
 const confirmAccountBtn = document.querySelector('button.confirmAccount');
 const confirmAccountRequestPayload = {
-    code: "926763",
+    code: "669459",
     email: registerRequestPayload.email
 };
 confirmAccountBtn.addEventListener('click', () => {
